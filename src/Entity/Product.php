@@ -107,7 +107,7 @@ class Product
         return $this->category;
     }
 
-    public function setCategory(?self $category): self
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 
@@ -122,27 +122,27 @@ class Product
         return $this->products;
     }
 
-    public function addProduct(self $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->setCategory($this);
-        }
+    // public function addProduct(self $product): self
+    // {
+    //     if (!$this->products->contains($product)) {
+    //         $this->products[] = $product;
+    //         $product->setCategory($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeProduct(self $product): self
-    {
-        if ($this->products->removeElement($product)) {
-            // set the owning side to null (unless already changed)
-            if ($product->getCategory() === $this) {
-                $product->setCategory(null);
-            }
-        }
+    // public function removeProduct(self $product): self
+    // {
+    //     if ($this->products->removeElement($product)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($product->getCategory() === $this) {
+    //             $product->setCategory(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Image>

@@ -22,6 +22,7 @@ class Category
     private $name;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private $parent;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
@@ -33,6 +34,7 @@ class Category
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
