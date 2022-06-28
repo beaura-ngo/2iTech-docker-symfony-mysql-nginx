@@ -42,6 +42,9 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderDetail::class)]
     private $orderDetails;
 
+    #[ORM\Column(type: 'float', nullable: true)]
+    private $soldPrice;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -102,7 +105,7 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?self
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
@@ -203,4 +206,17 @@ class Product
 
         return $this;
     }
+
+    public function getSoldPrice(): ?float
+    {
+        return $this->soldPrice;
+    }
+
+    public function setSoldPrice(?float $soldPrice): self
+    {
+        $this->soldPrice = $soldPrice;
+
+        return $this;
+    }
+
 }
