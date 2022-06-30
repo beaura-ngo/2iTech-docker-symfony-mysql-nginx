@@ -1,0 +1,67 @@
+{% extends '_layouts/_admin.html.twig' %}
+
+{% block title %}Orders Editor!
+{% endblock %}
+
+{% block h1 %}Orders Editor!
+{% endblock %}
+
+{% block body %}
+	<!-- Orders -->
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">Orders</h6>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Users</th>
+							<th>Reference</th>
+							<th>Created At</th>
+							<th>Modification</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>Id</th>
+							<th>Users</th>
+							<th>Reference</th>
+							<th>Created At</th>
+							<th>Modification</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>
+								<a href="" class="btn btn-danger">Add new order</a>
+							</td>
+						</tr>
+						{% for o in orders %}
+							<tr>
+								<td>{{ o.id }}</td>
+								<td>{{ o.users }}</td>
+								<td>{{ o.reference }}</td>
+								<td>{{ o.createdAt|date('Y-m-d') }}</td>
+								<td>
+									<a href="" class="btn btn-success">Edit</a>
+									<a href="" class="btn btn-warning">Delete</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								No order yet...
+							</tr>
+						{% endfor %}
+					</tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>{% endblock %}

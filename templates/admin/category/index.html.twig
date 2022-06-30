@@ -1,0 +1,63 @@
+{% extends '_layouts/_admin.html.twig' %}
+
+{% block title %}Categories!
+{% endblock %}
+
+{% block h1 %}Categories!
+{% endblock %}
+
+{% block body %}
+
+	<!-- Categories -->
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">Categories</h6>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Category Parent</th>
+							<th>Modification</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>Name</th>
+							<th>Category Parent</th>
+							<th>Modification</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						<tr>
+							<td></td>
+							<td></td>
+							<td>
+								<a href="" class="btn btn-danger">Add new category</a>
+							</td>
+						</tr>
+						{% if categories is not empty %}
+							{% for c in categories %}
+								<tr>
+									<td>{{ c.name }}</td>
+									<td>
+										{% if c.parent %}
+											{{ c.parent.name }}
+											{% else %}-
+										{% endif %}
+									</td>
+									<td>
+										<a href="" class="btn btn-success">Edit</a>
+										<a href="" class="btn btn-warning">Delete</a>
+									</td>
+								</tr>
+							{% endfor %}
+						{% endif %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

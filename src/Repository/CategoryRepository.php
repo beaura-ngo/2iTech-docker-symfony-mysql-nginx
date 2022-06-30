@@ -39,6 +39,17 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
+    //
+    public function findThreeLastCategoriess(int  $nb): array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults($nb)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Category[] Returns an array of Category objects
 //     */

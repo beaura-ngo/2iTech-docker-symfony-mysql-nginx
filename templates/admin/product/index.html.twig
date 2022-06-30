@@ -1,0 +1,78 @@
+{% extends '_layouts/_admin.html.twig' %}
+
+{% block title %}Product Editor!
+{% endblock %}
+
+{% block h1 %}Products Editor!
+{% endblock %}
+
+{% block body %}
+{% for type, messages in app.flashes() %}
+	{% for message in messages %}
+		<div class=" alert alert-{{ type }}" role="alert">
+				<div>{{ message|raw }}</div>
+		</div>
+	{% endfor %}
+{% endfor %}
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">All Products</h6>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Quantity</th>
+							<th>Category</th>
+							<th>Price</th>
+							<th>Created at</th>
+							<th>Sold price</th>
+							<th>Modification</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>Name</th>
+							<th>Quantity</th>
+							<th>Category</th>
+							<th>Price</th>
+							<th>Created at</th>
+							<th>Sold price</th>
+							<th>Modification</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						<div>
+							<a href="{{ path('admin_product_add') }}" class="btn btn-danger">Add new product</a>
+						</div>
+						{% if products is not empty %}
+							{% for p in products %}
+								<tr>
+									<td>{{ p.name }}</td>
+									<td>{{ p.quantity }}</td>
+									<td>{{ p.category.name }}</td>
+									<td>{{ p.price }}</td>
+									<td>{{ p.createdAt|date('Y-m-d') }}</td>
+									{# <td>{{ p.soldPrice | default('none')}}</td> #}
+									<td>
+										{% if p.soldPrice %}
+											{{ p.soldPrice}}$
+											{% else %}
+										{% endif %}
+									</td>
+									<td>
+										<a href="" class="btn btn-success">Edit</a>
+										<a href="" class="btn btn-warning">Delete</a>
+									</td>
+								</tr>
+							{% endfor %}
+						{% endif %}
+					</tbody>
+					
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

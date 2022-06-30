@@ -55,7 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->orders = new ArrayCollection();
-        $this->created_at = new \DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

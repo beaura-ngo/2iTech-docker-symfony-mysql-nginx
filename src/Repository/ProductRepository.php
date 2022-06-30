@@ -93,6 +93,19 @@ class ProductRepository extends ServiceEntityRepository
 //         return $resultSet->fetchAllAssociative();
 //    }
 
+   /**
+    * @return Product[] Returns an array of 5 last  added Product objects
+    */
+    public function findFiveLastAddedProducts(int  $nb): array
+   {
+       return $this->createQueryBuilder('p')
+           ->orderBy('p.createdAt', 'DESC')
+           ->setMaxResults($nb)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */
