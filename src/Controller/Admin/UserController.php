@@ -24,16 +24,16 @@ class UserController extends AbstractController {
     }
 
     #[Route('/add', name: 'add')]
-    public function addUser(UserRepository $userRepo, Request $request, ManagerRegistry $doctrine): Response
+    public function addUser(Request $request, ManagerRegistry $doctrine): Response
     {
         $user = new User;
         $form = $this->createForm(UserAddFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $do = $doctrine->getManager();
-            $do->persist($form->getData());
-            $do->flush();
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($form->getData());
+            $entityManager->flush();
             $this->addFlash('success', 'User has been succesfully added');
             return $this->redirectToRoute('admin_users_index');
         }
@@ -42,5 +42,44 @@ class UserController extends AbstractController {
             'admin/users/crud/addUser.html.twig',
             ['form' => $form->createView()]
         );
+    }
+
+    #[Route('/edit/{id}', name:'edit')]
+    public function updateUser(Request $request,ManagerRegistry $doctrine, int $id): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No user found for id' . $id
+            );
+        }
+        $form = $this->createForm(UserAddFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($form->getData());
+            $entityManager->flush();
+            $this->addFlash('success', 'User : ' . $user->getEmail() . ' has been edited');
+            return $this->redirectToRoute('admin_users_index');
+        }
+
+        return $this->render(
+            'admin/users/crud/addUser.html.twig',
+            ['user' => $user,
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route(':delete/{id}', name: 'delete')]
+    public function deleteUser(ManagerRegistry $doctrine, User $user): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($user);
+        $entityManager->flush();
+        $this->addFlash('success', 'User : ' . $user->getEmail() . ' has been deleted');
+
+        return $this->redirectToRoute('admin_users_index');
     }
 }

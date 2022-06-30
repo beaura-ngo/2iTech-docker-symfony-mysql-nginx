@@ -3,9 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,17 +23,14 @@ class UserAddFormType extends AbstractType
             ->add('city')
             ->add('country')
             ->add('roles', ChoiceType::class, [
-                // 'choice_attr' => ['roles'],
-                // 'label' => 'Roles',
                 'choices'  => [
                     'User' => 'ROLE_USER',
                     'Admin' => 'ROLE_ADMIN',
                 ],
                 'expanded' => true,
                 'multiple' => true,
-                // 'choice_value' => ChoiceList::value($this, 'uuid')
             ])
-            ->add('AddUser', SubmitType::class)
+            ->add('Fire', SubmitType::class)
         ;
     }
 

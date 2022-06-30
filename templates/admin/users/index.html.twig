@@ -77,8 +77,8 @@
 									<td>{{ u.country }}</td>
 									<td>{{ u.createdAt|date('Y-m-d') }}</td>
 									<td>
-										<a href="" class="btn btn-success">Edit</a>
-										<a href="" class="btn btn-warning">Delete</a>
+										<a href="{{ path('admin_users_edit', {'id': u.id}) }}" class="btn btn-success">Edit</a>
+										<a href="{{ path('admin_users_delete', {'id': u.id}) }}" class="btn btn-warning">Delete</a>
 									</td>
 								</tr>
 							{% endfor %}

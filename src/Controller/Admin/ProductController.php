@@ -46,4 +46,43 @@ class ProductController extends AbstractController
             ['form' => $form->createView()]
         );
     }
+
+    #[Route('/edit/{id}', name:'edit')]
+    public function updateProduct(Request $request,ManagerRegistry $doctrine, int $id): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $product = $entityManager->getRepository(Product::class)->find($id);
+
+        if (!$product) {
+            throw $this->createNotFoundException(
+                'No product found for id' . $id
+            );
+        }
+        $form = $this->createForm(ProductsFormType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($form->getData());
+            $entityManager->flush();
+            $this->addFlash('success', 'Product : ' . $product->getName() . ' has been edited');
+            return $this->redirectToRoute('admin_product_index');
+        }
+
+        return $this->render(
+            'admin/product/crud/addProduct.html.twig',
+            ['product' => $product,
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route(':delete/{id}', name: 'delete')]
+    public function deleteUser(ManagerRegistry $doctrine, Product $product): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($product);
+        $entityManager->flush();
+        $this->addFlash('success', 'Product : ' . $product->getName() . ' has been deleted');
+
+        return $this->redirectToRoute('admin_product_index');
+    }
 }
