@@ -18,7 +18,7 @@
 					<thead>
 						<tr>
 							<th>Id</th>
-							<th>Users</th>
+							<th>Users Id</th>
 							<th>Reference</th>
 							<th>Created At</th>
 							<th>Modification</th>
@@ -27,26 +27,20 @@
 					<tfoot>
 						<tr>
 							<th>Id</th>
-							<th>Users</th>
+							<th>Users Id</th>
 							<th>Reference</th>
 							<th>Created At</th>
 							<th>Modification</th>
 						</tr>
 					</tfoot>
 					<tbody>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>
-								<a href="" class="btn btn-danger">Add new order</a>
-							</td>
-						</tr>
+						<div>
+							<a href="" class="btn btn-danger">Add new order</a>
+						</div>
 						{% for o in orders %}
 							<tr>
 								<td>{{ o.id }}</td>
-								<td>{{ o.users }}</td>
+								<td>{{ o.user.id }}</td>
 								<td>{{ o.reference }}</td>
 								<td>{{ o.createdAt|date('Y-m-d') }}</td>
 								<td>
